@@ -12,6 +12,8 @@ class Ball(GameObject):
     def __init__(self, screen_size):
         self.x, self.y = screen_size[0]//2, screen_size[1]//2
 
+        self.is_dead = True
+
         self.v_x = 0
         self.v_y = 0
         self.angle = 0
@@ -23,6 +25,8 @@ class Ball(GameObject):
         self.v_x = -10
         self.v_y = 10
         self.angle = random.uniform(-0.25, 0.25)
+
+        self.is_dead = False
 
     def get_drawable(self) -> tuple[tuple[int, int], int]:
         return ((self.x, self.y), self.RADIUS)
@@ -75,7 +79,12 @@ class Ball(GameObject):
             self.v_y *= -1
 
         # Death Collision
-        if self.x + self.RADIUS <= 0 or self.x - self.RADIUS >= screen_size[0]:
+        if self.x + self.RADIUS <= 0:
+            enemy.win()
+            self.die(screen_size)
+
+        if self.x - self.RADIUS >= screen_size[0]:
+            player.win()
             self.die(screen_size)
 
         # PADDLE COLLISION
@@ -96,3 +105,5 @@ class Ball(GameObject):
         self.v_x = 0
         self.v_y = 0
         self.x, self.y = screen_size[0]//2, screen_size[1]//2
+
+        self.is_dead = True

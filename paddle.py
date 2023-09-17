@@ -12,6 +12,8 @@ class Paddle(GameObject):
 
         self.v_y = 10
 
+        self.points = 0
+
         self.rect: Rect | None = None
 
     def get_drawable(self) -> tuple[int, int, int, int]:
@@ -19,6 +21,9 @@ class Paddle(GameObject):
 
     def set_rect(self, rect: Rect):
         self.rect = rect
+
+    def win(self):
+        self.points += 1
 
     def move(
             self,
