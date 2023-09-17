@@ -6,3 +6,6 @@ class GameObject:
 
     def get_drawable(self) -> tuple[Any]:
         raise NotImplemented()
+
+    def set_rect(self, rect: Any):
+        raise NotImplemented()

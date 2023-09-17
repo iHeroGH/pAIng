@@ -1,4 +1,5 @@
 from abstract import GameObject
+from pygame import Rect
 
 class Paddle(GameObject):
 
@@ -11,8 +12,13 @@ class Paddle(GameObject):
 
         self.v_y = 10
 
+        self.rect: Rect | None = None
+
     def get_drawable(self) -> tuple[int, int, int, int]:
         return (self.x, self.y, self.WIDTH, self.HEIGHT)
+
+    def set_rect(self, rect: Rect):
+        self.rect = rect
 
     def move(
             self,
@@ -39,7 +45,7 @@ class Paddle(GameObject):
         """
         Delagates to the move function the parameters necessary to move up
 
-        move(0, -1)
+        move(-1)
 
         Parameters
         ----------
@@ -52,7 +58,7 @@ class Paddle(GameObject):
         """
         Delagates to the move function the parameters necessary to move down
 
-        move(0, 1)
+        move(1)
 
         Parameters
         ----------

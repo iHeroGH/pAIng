@@ -18,7 +18,7 @@ class Manager:
         pygame.display.set_caption("You want to play? Let's play.")
 
         self.clock = pygame.time.Clock()
-        self.refresh_rate = 40
+        self.refresh_rate = 45
 
         self.player = Paddle(10, self.HEIGHT)
         self.enemy = Paddle(self.WIDTH - 10 - Paddle.WIDTH, self.HEIGHT)
@@ -68,22 +68,23 @@ class Manager:
             drawable = object.get_drawable()
             match len(drawable):
                 case 4:
-                    pygame.draw.rect(
+                    object.set_rect(pygame.draw.rect(
                         self.screen, (255,255,255), drawable
-                    )
+                    ))
                 case 2:
-                    pygame.draw.circle(
+                    object.set_rect(pygame.draw.circle(
                         self.screen, (255, 0, 0), *drawable # type: ignore
-                    )
+                    ))
 
     def game_loop(self):
         while not self.done:
             self.clock.tick(self.refresh_rate)
 
+            self.draw(self.ball, self.player, self.enemy)
+
             self.handle_events()
             self.handle_paddle_movement()
-            self.ball.move(self.SCREEN_SIZE, self.player, self.enemy)
 
-            self.draw(self.player, self.enemy, self.ball)
+            self.ball.move(self.SCREEN_SIZE, self.player, self.enemy)
 
             pygame.display.flip()
